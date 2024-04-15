@@ -6,6 +6,13 @@
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
 <body>
+    <h1>Enter a Value for GBest</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="gbest">Update GBest:</label>
+        <input type="text" id="gbest" name="gbest" value="100">
+        <button type="submit">Update GBest</button>
+    </form>
     <canvas id="canvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

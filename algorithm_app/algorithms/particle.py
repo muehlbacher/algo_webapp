@@ -53,9 +53,10 @@ class ParticleAlgo:
             self.particles = particles
         self.width = width
         self.height = height
-        self.gbest = Point(100,100)
         if gbest:
             self.gbest = gbest
+        else:
+            self.gbest = Point(100,100)
 
     def to_json(self):
         # Serialize the object manually
@@ -83,24 +84,24 @@ class ParticleAlgo:
     def fitness_function_old(self, position):
         return sum(x**2 for x in position)
     
-    def fitness_function_old(self, position):
+    def fitness_function(self, position):
         x = position[0]
         y = position[1]
         return (x - self.gbest.x)**2 + (y - self.gbest.y)**2
     
-    def fitness_function(self, position):
+    def fitness_function_old(self, position):
         x = position[0]
         y = position[1]
         return (x - 30) **2 + (y - 30) **2
     
     def determine_g_best(self):
         self.gbest_fitness = self.fitness_function((self.gbest.x, self.gbest.y))
-        for particle in self.particles:
-            fitness = self.fitness_function((particle.x, particle.y))
-            if fitness < self.gbest_fitness:
-                self.gbest_fitness = fitness
-                self.gbest.x = particle.x
-                self.gbest.y = particle.y
+        #for particle in self.particles:
+        #    fitness = self.fitness_function((particle.x, particle.y))
+        #    if fitness < self.gbest_fitness:
+        #        self.gbest_fitness = fitness
+        #        self.gbest.x = particle.x
+        #        self.gbest.y = particle.y
     
     def create_particles(self):
         self.particles = []
