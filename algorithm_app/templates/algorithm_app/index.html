@@ -6,6 +6,8 @@
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
 <body>
+    {% load static %}
+
     <h1>Enter a Value for GBest</h1>
     <form method="post">
         {% csrf_token %}
@@ -15,7 +17,34 @@
     </form>
     <canvas id="canvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
     <script>
+        const c = document.getElementById('canvas');
+        const ctx = c.getContext("2d");
+        const grad=ctx.createLinearGradient(0,0, 555,0);
+        grad.addColorStop(0, "lightblue");
+        grad.addColorStop(1, "darkblue");
+        const img = new Image();
+
+        img.onload = function() {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                initAnimation();
+            };
+
+            img.onerror = function() {
+            console.error('Failed to load the image');
+            };
+            //img.src = 'penguin_in_new_york.webp'; // Set source path, adjust as needed
+            //img.src = 'https://source.unsplash.com/random/800x600'; // Make sure this URL loads an image successfully
+            //img.src= 'test.png'
+            img.src ="{% static 'penguin_in_new_york.webp' %}"
+            console.log(img)
+
+
+        // Fill rectangle with gradient
+        ctx.fillStyle = grad;
+        ctx.fillRect(10,10, canvas.width,canvas.height);
+
         document.addEventListener("DOMContentLoaded", function() {
+
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
             const points = JSON.parse('{{ points|safe }}');
@@ -33,11 +62,20 @@
             function drawPoints(points) {
                 console.log("New Points...")
                 console.log(points[0])
+                console.log(points[1])
+                console.log(img)
+                //console.log(points[0].color)
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Redraw the background
+
+                //ctx.fillStyle = grad;
+                //ctx.fillRect(0,0, canvas.width,canvas.height);
                 points.forEach(point => {
+                    const pixelData = ctx.getImageData(point.x, point.y, 1, 1).data;
                     ctx.beginPath();
                     ctx.arc(point.x, point.y, point.size, 0, 2 * Math.PI, false);
-                    ctx.fillStyle = 'black';
+                    //ctx.fillStyle = `rgb(${point.color[0]}, ${point.color[1]}, ${point.color[2]})`
+                    ctx.fillStyle = `rgb(${pixelData[0]+20}, ${pixelData[1]-20}, ${pixelData[2]})`
                     ctx.fill();
                 });
             }

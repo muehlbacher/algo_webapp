@@ -41,12 +41,13 @@ def index(request):
     #particle.create_particles()
     points = []
     for part in particle.particles:
-        points.append({'x': part.x, 'y': part.y, 'size': 10})
+        points.append({'x': part.x, 'y': part.y, 'size': 10, 'color': part.color})
     #points = [{'x': random.randint(0, 800), 'y': random.randint(0, 600), 'size': 10} for _ in range(5)]
     points_json = json.dumps(points)
     print("Before render...")
     request.session['particle'] = particle.to_json()
     #print(request.session['particle'])
+    #print(points_json)
     return render(request, 'algorithm_app/index.html', {'points': points_json})
 
 
@@ -59,7 +60,7 @@ def get_new_coordinates(request):
     particle.update()
     points = []
     for part in particle.particles:
-        points.append({'x': part.x, 'y': part.y, 'size': 10})
+        points.append({'x': part.x, 'y': part.y, 'size': 10, 'color': part.color})
     request.session['particle'] = particle.to_json()
     #points_json = [{'x': random.randint(0, 800), 'y': random.randint(0, 600), 'size': 10} for _ in range(5)]
     return JsonResponse({'points': points})

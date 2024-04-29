@@ -26,6 +26,7 @@ class Particle:
     r2: float = 0.01
     vx: float = 0
     vy: float = 0
+    color: tuple = (0,255,0)
 
     def to_dict(self):
         data = asdict(self)
@@ -42,7 +43,8 @@ class Particle:
             r1=data['r1'],
             r2=data['r2'],
             vx=data['vx'],
-            vy=data['vy']
+            vy=data['vy'],
+            color=data['color']
         )
 
 class ParticleAlgo:
