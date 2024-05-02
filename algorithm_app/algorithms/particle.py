@@ -108,8 +108,8 @@ class ParticleAlgo:
     def create_particles(self):
         self.particles = []
         for i in range(self.n):
-            x = random.randint(0, self.width)
-            y = random.randint(0, self.height)
+            x = random.randint(0, self.width-1)
+            y = random.randint(0, self.height-1)
             particle = Particle(x=x, 
                                 y=y,
                                 fitness = self.fitness_function((x,y)),
@@ -156,3 +156,15 @@ class ParticleAlgo:
 
         #find particle with highest fitness
         self.determine_g_best()
+
+    def set_color(self, image):
+        resized_image = image.resize((self.width, self.height))
+
+        for particle in self.particles:
+            try:
+                particle.color = resized_image.getpixel((particle.x, particle.y))
+            except IndexError as e:
+                print("ERROR!!!")
+                print(f"X:{particle.x}, Y:{particle.y}")
+
+        
