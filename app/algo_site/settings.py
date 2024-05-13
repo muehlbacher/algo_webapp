@@ -28,6 +28,7 @@ DEBUG = True
 
 #ALLOWED_HOSTS = ["dominikmuehlbacher.at"]
 #ALLOWED_HOSTS = ["dominikmuehlbacher.at"]
+ALLOWED_HOSTS = ["dominikmuehlbacher.at"]
 
 # Application definition
 
