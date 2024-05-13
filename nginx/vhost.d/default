@@ -1,4 +1,4 @@
 location /static/ {
-    alias /home/web/app/web/staticfiles;
+    alias /home/web/app/web/staticfiles/;
     add_header Access-Control-Allow-Origin *;
 }
