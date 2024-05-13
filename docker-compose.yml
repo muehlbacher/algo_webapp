@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: ./app
-      dockerfiles: Dockerfile
+      dockerfile: Dockerfile
     command: gunicorn algo_site.wsgi:application -w 4 -k gthread -b 0.0.0.0:8000
     volumes:
       - static_volume:/home/app/web/staticfiles
